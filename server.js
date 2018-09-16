@@ -108,7 +108,7 @@ app.post('/results', function(req, res) {
           }
       }
       console.log(closestMatch);
-      res.render('pages/result', {data: [closestMatch, totalScore]});
+      res.render('pages/result', {data: [closestMatch]});
     });
   });
 });
@@ -120,39 +120,4 @@ app.get("/users", function(req, res) {
   });
 });
 
-app.post('/results_2', function(req, res) {
-  var total = [];
-  var score = 0;
-  console.log(req.body);
-  // res.json(req.body);
-  for(var i = 0; i < 10; i++)
-  {
-    if(req.body.score[i] == "1 (Strongly Disagree)")
-    {
-      console.log("change to 1");
-      score = 1;
-      total.push(score);
-    }
-    else if(req.body.score[i] == "5 (Strongly Agree)")
-    {
-      console.log("change to 1");
-      score = 5;
-      total.push(score)
-    }
-    else
-    {
-      total.push(parseInt(req.body.score[i]));
-    }
-  }
-  console.log(total);
-  // for(var i = 0; i < total.length; i++)
-  // {
-  //   totalScore += total[i];
-  // }
-  // console.log(totalScore);
-  connection.query('INSERT INTO users_2 (full_name, email, score) VALUES (?,?,?)', [req.body.full_name,req.body.email,total],function(error, results, fields){
-    if (error) throw error;
-    
-  });
-});
 app.listen(3000);
